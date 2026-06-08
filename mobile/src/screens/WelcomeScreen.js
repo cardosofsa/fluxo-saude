@@ -16,7 +16,7 @@ export default function WelcomeScreen({ navigation }) {
         <View style={styles.actions}>
           <Pressable
             style={({ pressed }) => [styles.btnPrimary, pressed && styles.pressed]}
-            onPress={() => navigation.navigate('PatientHome')}
+            onPress={() => navigation.navigate('PatientTabs')}
           >
             <Text style={styles.btnPrimaryText}>Sou Paciente  ›</Text>
           </Pressable>

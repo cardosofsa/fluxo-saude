@@ -32,7 +32,7 @@ export default function CheckinScreen({ route, navigation }) {
     });
     setSaving(false);
     Alert.alert('Check-in realizado!', `Seu código é ${code}. Apresente na unidade ${unit?.name || ''}.`, [
-      { text: 'OK', onPress: () => navigation.navigate('PatientHome') },
+      { text: 'OK', onPress: () => navigation.navigate('PatientTabs') },
     ]);
   };
 

@@ -11,7 +11,13 @@
     },
     "android": {
       "package": "br.com.fluxosaude.app",
-      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION", "INTERNET"],
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "INTERNET",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -30,6 +36,11 @@
           "locationWhenInUsePermission": "O Fluxo Saúde usa sua localização para mostrar sua posição no mapa e calcular a rota até a unidade de saúde."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2570ab3a-af3b-42b2-9899-71f538eb0449"
+      }
+    }
   }
 }
