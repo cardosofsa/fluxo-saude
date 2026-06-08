@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, FlatList, ActivityIndicator, Pressable } from 'react-native';
 import { db } from '../services/db';
-import { colors, statusBadge } from '../theme';
+import { colors } from '../theme';
 
 const bedColor = (s) => (s === 'critical' ? colors.danger : s === 'observation' ? colors.warning : colors.success);
 const bedLabelPt = (s) => (s === 'critical' ? 'CRÍTICO' : s === 'observation' ? 'OBSERVAÇÃO' : 'LIVRE');
 
-export default function ProfessionalDashboardScreen({ route }) {
+export default function ProfessionalDashboardScreen({ route, navigation }) {
   const user = route.params?.user || { name: 'Profissional', role: 'clinical' };
   const [beds, setBeds] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,6 +20,16 @@ export default function ProfessionalDashboardScreen({ route }) {
       <View style={styles.header}>
         <Text style={styles.hello}>Olá, {user.name}</Text>
         <Text style={styles.role}>{user.role === 'admin' ? 'Administrador' : user.role === 'flow' ? 'Controle de Fluxo' : 'Corpo Clínico'}</Text>
+        <View style={styles.actions}>
+          <Pressable style={styles.action} onPress={() => navigation.navigate('Handover', { user })}>
+            <Text style={styles.actionText}>📋 Passagem de plantão</Text>
+          </Pressable>
+          {user.role === 'admin' && (
+            <Pressable style={styles.action} onPress={() => navigation.navigate('Admin')}>
+              <Text style={styles.actionText}>👥 Cadastrar acesso</Text>
+            </Pressable>
+          )}
+        </View>
       </View>
 
       {loading ? (
@@ -51,6 +61,9 @@ const styles = StyleSheet.create({
   header: { padding: 16, borderBottomWidth: 1, borderBottomColor: colors.border, backgroundColor: '#fff' },
   hello: { fontSize: 20, fontWeight: '800', color: colors.text },
   role: { color: colors.muted, marginTop: 2 },
+  actions: { flexDirection: 'row', gap: 8, marginTop: 12, flexWrap: 'wrap' },
+  action: { backgroundColor: '#E6F0FA', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 10 },
+  actionText: { color: colors.primaryDark, fontWeight: '700', fontSize: 12 },
   section: { fontSize: 16, fontWeight: '800', color: colors.text, marginBottom: 12 },
   empty: { color: colors.muted, textAlign: 'center', marginTop: 20 },
   bed: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff', borderRadius: 12, padding: 14, marginBottom: 10, borderWidth: 1, borderColor: colors.border, borderLeftWidth: 5 },

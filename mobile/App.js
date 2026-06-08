@@ -14,6 +14,8 @@ import UnitMapScreen from './src/screens/UnitMapScreen';
 import CheckinScreen from './src/screens/CheckinScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import ProfessionalDashboardScreen from './src/screens/ProfessionalDashboardScreen';
+import HandoverScreen from './src/screens/HandoverScreen';
+import AdminScreen from './src/screens/AdminScreen';
 import { colors } from './src/theme';
 
 const Stack = createNativeStackNavigator();
@@ -55,6 +57,8 @@ export default function App() {
         <Stack.Screen name="Checkin" component={CheckinScreen} options={{ ...navHeader, title: 'Check-in Digital' }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ ...navHeader, title: 'Profissional' }} />
         <Stack.Screen name="ProfessionalDashboard" component={ProfessionalDashboardScreen} options={{ ...navHeader, title: 'Painel', headerBackVisible: false }} />
+        <Stack.Screen name="Handover" component={HandoverScreen} options={{ ...navHeader, title: 'Passagem de Plantão' }} />
+        <Stack.Screen name="Admin" component={AdminScreen} options={{ ...navHeader, title: 'Painel Admin' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

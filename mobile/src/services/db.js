@@ -100,4 +100,17 @@ export const db = {
     }
     return row;
   },
+
+  async registerStaff(staffMember) {
+    const row = { id: `s_${Date.now()}`, created_at: new Date().toISOString(), ...staffMember };
+    if (isSupabaseConfigured) {
+      try {
+        const { error } = await supabase.from('staff').insert([row]);
+        if (error) console.warn('Supabase insert staff:', error.message);
+      } catch (err) {
+        console.warn('Supabase registerStaff falhou:', err?.message);
+      }
+    }
+    return row;
+  },
 };
