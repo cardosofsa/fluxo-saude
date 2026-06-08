@@ -1,0 +1,8 @@
+{
+  "appId": "br.com.fluxosaude.app",
+  "appName": "Fluxo Saúde",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

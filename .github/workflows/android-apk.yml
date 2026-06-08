@@ -1,0 +1,53 @@
+name: Build Android APK
+
+# Compila o APK na nuvem (não precisa de Android Studio local).
+# O APK gerado fica em Actions > run > Artifacts > fluxo-saude-debug-apk.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Build web (Vite)
+        env:
+          # As chaves do Supabase são embutidas no bundle em tempo de build.
+          # Defina-as em: Settings > Secrets and variables > Actions > Secrets.
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_OSRM_URL: https://router.project-osrm.org
+          VITE_TILE_URL: https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png
+        run: npm run build
+
+      - name: Sincronizar Capacitor (Android)
+        run: npx cap sync android
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Compilar APK de debug
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fluxo-saude-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
