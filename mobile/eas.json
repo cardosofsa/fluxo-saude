@@ -1,0 +1,39 @@
+{
+  "cli": {
+    "version": ">= 12.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": { "buildType": "apk" },
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://ikrriybdhnqnjxesijqa.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_zFYrSEqYx4EYQMpD7Hy_SA_LZrOEH7N",
+        "EXPO_PUBLIC_OSRM_URL": "https://router.project-osrm.org"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": { "buildType": "apk" },
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://ikrriybdhnqnjxesijqa.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_zFYrSEqYx4EYQMpD7Hy_SA_LZrOEH7N",
+        "EXPO_PUBLIC_OSRM_URL": "https://router.project-osrm.org"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "android": { "buildType": "app-bundle" },
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://ikrriybdhnqnjxesijqa.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_zFYrSEqYx4EYQMpD7Hy_SA_LZrOEH7N",
+        "EXPO_PUBLIC_OSRM_URL": "https://router.project-osrm.org"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
