@@ -24,6 +24,14 @@ export default function ProfessionalDashboardScreen({ route, navigation }) {
           <Pressable style={styles.action} onPress={() => navigation.navigate('Handover', { user })}>
             <Text style={styles.actionText}>📋 Passagem de plantão</Text>
           </Pressable>
+          <Pressable style={styles.action} onPress={() => navigation.navigate('Checkins')}>
+            <Text style={styles.actionText}>🩺 Triagem</Text>
+          </Pressable>
+          {(user.role === 'flow' || user.role === 'admin') && (
+            <Pressable style={styles.action} onPress={() => navigation.navigate('FlowControl')}>
+              <Text style={styles.actionText}>📊 Controle de fluxo</Text>
+            </Pressable>
+          )}
           {user.role === 'admin' && (
             <Pressable style={styles.action} onPress={() => navigation.navigate('Admin')}>
               <Text style={styles.actionText}>👥 Cadastrar acesso</Text>

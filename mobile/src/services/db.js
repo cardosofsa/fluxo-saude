@@ -101,6 +101,48 @@ export const db = {
     return row;
   },
 
+  async updateUnit(unitId, updates) {
+    if (isSupabaseConfigured) {
+      try {
+        const { error } = await supabase.from('units').update(updates).eq('id', unitId);
+        if (error) console.warn('Supabase update unit:', error.message);
+      } catch (err) {
+        console.warn('Supabase updateUnit falhou:', err?.message);
+      }
+    }
+    return { id: unitId, ...updates };
+  },
+
+  async getCheckins() {
+    if (isSupabaseConfigured) {
+      try {
+        const { data, error } = await supabase
+          .from('digital_checkins')
+          .select('*')
+          .order('created_at', { ascending: false });
+        if (!error && data) return data;
+      } catch (err) {
+        console.warn('Supabase checkins falhou:', err?.message);
+      }
+    }
+    return [];
+  },
+
+  async triageCheckin(checkinId, updates) {
+    if (isSupabaseConfigured) {
+      try {
+        const { error } = await supabase
+          .from('digital_checkins')
+          .update({ ...updates, status: 'Triado' })
+          .eq('id', checkinId);
+        if (error) console.warn('Supabase triagem:', error.message);
+      } catch (err) {
+        console.warn('Supabase triageCheckin falhou:', err?.message);
+      }
+    }
+    return { id: checkinId, ...updates, status: 'Triado' };
+  },
+
   async registerStaff(staffMember) {
     const row = { id: `s_${Date.now()}`, created_at: new Date().toISOString(), ...staffMember };
     if (isSupabaseConfigured) {
